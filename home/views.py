@@ -45,6 +45,7 @@ class Product_detail(Base):
         self.views['detailpro'] = Product.objects.filter(slug=slug)
         subcat_id = Product.objects.get(slug=slug).subcategory_id
         self.views['relate'] = Product.objects.filter(subcategory_id=subcat_id)
+        self.views['product_review'] = Review.objects.filter(slug=slug)
         return render(request,'product-detail.html',self.views)
 def review(request):
     if request.method == 'POST':
@@ -60,7 +61,8 @@ def review(request):
             email=email,
             star=star,
             slug=slug,
-            comment=comment
+            comment=comment,
+            date=date
 
         )
         data.save()
